@@ -1,0 +1,25 @@
+curl -X POST -H "Accept: application/json" -H "Authorization: Basic Y2xpZW50YXBwOjEyMzQ1Ng==" -H "Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW" -F "password=pass" -F "username=user" -F "grant_type=password" -F "scope=read" -F "client_secret=123456" -F "client_id=clientapp" "http://localhost:8080/oauth/token"
+
+OR
+
+wget --quiet \
+  --method POST \
+  --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' \
+  --header 'accept: application/json' \
+  --header 'authorization: Basic Y2xpZW50YXBwOjEyMzQ1Ng==' \
+  --body-data '-----011000010111000001101001\r\nContent-Disposition: form-data; name="password"\r\n\r\npass\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name="username"\r\n\r\nuser\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name="grant_type"\r\n\r\npassword\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name="scope"\r\n\r\nread\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name="client_secret"\r\n\r\n123456\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name="client_id"\r\n\r\nclientapp\r\n-----011000010111000001101001--' \
+  --output-document \
+  - http://localhost:8080/oauth/token
+
+THIS WILL RETURN:
+    {
+      "access_token": "f60e3129-0523-4c75-970e-aeace59362c3",
+      "token_type": "bearer",
+      "refresh_token": "167187c9-cbb9-4798-9377-5cc814d86c7f",
+      "expires_in": 43199,
+      "scope": "read"
+    }
+
+THEN WITH THE TOKEN:
+
+curl -X GET -H "Authorization: Bearer 90198fda-a3e4-42fd-859e-b560e877089f" "http://localhost:8080/authentication/user"

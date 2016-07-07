@@ -1,0 +1,5 @@
+spasecurity/.idea
+spasecurity/.mvn
+spasecurity/target
+spasecurity/target/classes/application.properties
+spasecurity/spasecurity.iml
