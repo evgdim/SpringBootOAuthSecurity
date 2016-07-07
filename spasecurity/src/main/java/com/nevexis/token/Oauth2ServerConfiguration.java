@@ -49,6 +49,7 @@ public class Oauth2ServerConfiguration {
         public void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
+                    .antMatchers("/oauth/token").permitAll()
                     .antMatchers("/users").hasRole("ADMIN")
                     .antMatchers("/authentication/**").authenticated();
         }

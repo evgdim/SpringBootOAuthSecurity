@@ -1,0 +1,44 @@
+import { Component, OnInit } from '@angular/core';
+import { Http, Response, Headers } from '@angular/http';
+import { Observable }     from 'rxjs/Observable';
+
+@Component({
+  moduleId: module.id,
+  selector: 'app-auth',
+  templateUrl: 'auth.component.html',
+  styleUrls: ['auth.component.css']
+})
+export class AuthComponent implements OnInit {
+  token :String;
+  constructor(private http: Http) {}
+
+  ngOnInit() {
+  }
+
+  getTokenOnClick(){
+      let headers = new Headers([{'Accept': 'application/json'}, {"Authorization":"Basic Y2xpZW50YXBwOjEyMzQ1Ng=="}, {"Content-Type":"multipart/form-data"}]);
+      let formData = new FormData();
+      formData.append("password", "pass");
+      formData.append("username", "user");
+      formData.append("grant_type", "password");
+      formData.append("scope", "read");
+      formData.append("client_secret", "123456");
+      formData.append("client_id", "clientapp");
+      this.http.post("http://localhost:8080/oauth/token",
+                    //  {
+                    //    password: "pass",
+                    //    username: "user",
+                    //    grant_type: "password",
+                    //    scope: "read",
+                    //    client_secret: "123456",
+                    //    client_id: "clientapp"
+                    //  },
+                    formData,
+                     {headers : headers})
+              .subscribe(
+                res =>console.log(res.json()),
+                err => console.log(err)
+              );
+
+  }
+}
