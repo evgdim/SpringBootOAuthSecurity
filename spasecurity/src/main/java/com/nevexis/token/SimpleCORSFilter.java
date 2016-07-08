@@ -10,11 +10,14 @@ import java.io.IOException;
         import javax.servlet.http.HttpServletResponse;
         import org.slf4j.Logger;
         import org.slf4j.LoggerFactory;
-        import org.springframework.stereotype.Component;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 /**
  * Created by evgeni on 7/7/2016.
  */
 @Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCORSFilter implements Filter {
 
     private final Logger log = LoggerFactory.getLogger(SimpleCORSFilter.class);
@@ -38,9 +41,13 @@ public class SimpleCORSFilter implements Filter {
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me, Access-Control-Request-Headers, Authorization, 0, 1");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Cache-Control, Accept, X-Requested-With, remember-me, Access-Control-Request-Headers, Authorization, 0, 1, 2");
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            chain.doFilter(req, res);
+        }
 
-        chain.doFilter(req, res);
     }
 
     @Override

@@ -16,7 +16,11 @@ export class AuthComponent implements OnInit {
   }
 
   getTokenOnClick(){
-      let headers = new Headers([{'Accept': 'application/json'}, {"Authorization":"Basic Y2xpZW50YXBwOjEyMzQ1Ng=="}, {"Content-Type":"multipart/form-data"}]);
+      let headers = new Headers();
+      headers.append('accept', 'application/json');
+      headers.append("authorization","Basic " + btoa("clientapp:123456"));
+      headers.append("cache-control", "no-cache");
+
       let formData = new FormData();
       formData.append("password", "pass");
       formData.append("username", "user");
@@ -24,21 +28,13 @@ export class AuthComponent implements OnInit {
       formData.append("scope", "read");
       formData.append("client_secret", "123456");
       formData.append("client_id", "clientapp");
+
       this.http.post("http://localhost:8080/oauth/token",
-                    //  {
-                    //    password: "pass",
-                    //    username: "user",
-                    //    grant_type: "password",
-                    //    scope: "read",
-                    //    client_secret: "123456",
-                    //    client_id: "clientapp"
-                    //  },
                     formData,
                      {headers : headers})
               .subscribe(
                 res =>console.log(res.json()),
                 err => console.log(err)
               );
-
   }
 }
