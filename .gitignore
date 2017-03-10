@@ -3,3 +3,8 @@ spasecurity/.mvn
 spasecurity/target
 spasecurity/target/classes/application.properties
 spasecurity/spasecurity.iml
+spasecurity/.settings/
+oauthwrapper/.settings/
+oauthwrapper/.project
+spasecurity/.project
+spasecurity/.classpath
