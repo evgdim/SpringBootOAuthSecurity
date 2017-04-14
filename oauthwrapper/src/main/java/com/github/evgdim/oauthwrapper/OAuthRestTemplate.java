@@ -20,11 +20,18 @@ public class OAuthRestTemplate {
 	}
 
 	public <T> T makeCall(ServiceCaller caller) throws Exception {
-		if(tokenHolder == null || tokenHolder.getValidTo().before(new Date())) { // need new token
-			logger.debug("[makeCall] tokenHolder missing or expired."+this.tokenHolder);
+		if(tokenHolder == null) {
+			logger.debug("[makeCall] tokenHolder missing");
 			TokenHolder token = tokenRequester.requestToken();
 			this.tokenHolder = token;
 			logger.debug("[makeCall] requested new token."+this.tokenHolder);
+		} else {
+			if(tokenHolder.getValidTo().before(new Date())) {
+				logger.debug("[makeCall] tokenHolder expired "+this.tokenHolder);
+				TokenHolder token = tokenRequester.refreshToken();
+				this.tokenHolder = token;
+				logger.debug("[makeCall] refresh token."+this.tokenHolder);
+			}
 		}
 		byte retryCount = 0;
 		while(retryCount <= NUMBER_OF_RETRIES) {
