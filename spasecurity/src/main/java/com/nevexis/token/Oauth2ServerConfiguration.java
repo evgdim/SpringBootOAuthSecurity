@@ -76,6 +76,14 @@ public class Oauth2ServerConfiguration {
                     .scopes("read", "write")
                     .resourceIds(RESOURCE_ID)
                     .secret("123456")
+                    .accessTokenValiditySeconds(3600)
+               .and()
+                    .withClient("otherApp")
+                    .authorizedGrantTypes("password", "refresh_token")
+                    .authorities("USER")
+                    .scopes("read", "write")
+                    .resourceIds("otherAppId")
+                    .secret("otherAppPass")
                     .accessTokenValiditySeconds(3600);
         }
 
