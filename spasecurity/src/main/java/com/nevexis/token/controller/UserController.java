@@ -5,9 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
-/**
- * Created by evgeni on 7/7/2016.
- */
 @RestController
 @RequestMapping("/user")
 public class UserController {

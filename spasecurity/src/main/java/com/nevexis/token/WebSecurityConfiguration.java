@@ -1,5 +1,7 @@
 package com.nevexis.token;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,12 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
-import java.util.Arrays;
-
-/**
- * Created by evgeni on 7/7/2016.
- */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -60,6 +58,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+    
+    @SuppressWarnings("deprecation")
+    @Bean
+    public static NoOpPasswordEncoder passwordEncoder() {
+    return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
 
 }

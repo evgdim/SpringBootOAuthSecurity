@@ -6,5 +6,6 @@ spasecurity/spasecurity.iml
 spasecurity/.settings/
 oauthwrapper/.settings/
 oauthwrapper/.project
+oauthwrapper/.classpath
 spasecurity/.project
 spasecurity/.classpath
